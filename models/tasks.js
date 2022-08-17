@@ -58,30 +58,28 @@ class Tasks {
         });
     }
 
-    // completedAndPending(completadas = true) {
+    completedAndPending(completadas = true) {
 
-    //     let counter = 0;
-    //     this.listArr.forEach(task => {
+        let counter = 0;
+        this.listArr.forEach(task => {
 
-    //         const { desc, completado } = task;
-    //         const state = (completado) ? 'Completada'.green : 'Pendiente'.red;
+            const { desc, completado } = task;
+            const state = (completado) ? 'Completada'.green : 'Pendiente'.red;
 
-    //         if (completado) {
-    //             counter += 1;
-    //             console.log(`${(counter + '.').green} ${desc} :: ${completado}`);
-    //         } else {
-    //             if (!completado) {
-    //                 counter += 1;
-    //                 console.log(`${(counter + '.').red} ${desc} :: ${state}`);
-    //             }
-    //         }
-
-
-
-    //     });
+            if (completadas) {
+                if (completado) {
+                    counter += 1;
+                    console.log(`${(counter + '.').green} ${desc} :: ${state}`);
+                }
+            } else {
+                if (!completado) {
+                    counter += 1;
+                    console.log(`${(counter + '.').red} ${desc} :: ${state}`);
+                }
+            }
+        });
+    }
 }
-
-//}
 
 
 module.exports = Tasks;
