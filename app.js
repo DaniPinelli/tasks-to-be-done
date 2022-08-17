@@ -3,6 +3,7 @@ require('colors');
 
 //Destructuring function
 const { inquirerMenu, pause, readInput } = require('./helpers/inquirer');
+const { keepDB, readDB } = require('./helpers/keepFile');
 //Import file
 const Tasks = require('./models/tasks');
 
@@ -14,6 +15,12 @@ const main = async () => {
 
     //Instantiate Tasks
     const tasks = new Tasks();
+
+    const taskDB = readDB();
+    //Upload task
+    if (taskDB) {
+        tasks.uploadTaskFromArray(taskDB);
+    }
 
     do {
         //Print menu from inquirer and return an option 
@@ -27,9 +34,11 @@ const main = async () => {
                 break;
 
             case '2':
-                console.log(tasks.listArr);
+                tasks.fullList();
                 break;
         }
+
+        keepDB(tasks.listArr);
 
         await pause();
 
