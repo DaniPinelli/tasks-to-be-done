@@ -85,10 +85,29 @@ const readInput = async (message) => {
     return desc;
 }
 
+const listToDelete = async () => {
+
+    const choices = tasks.map((task, i) => {
+
+        const id = `${i + 1}`.green;
+
+        return {
+            value: task.id,
+            name: id
+        }
+    })
+
+    // {
+    //     value: task.id,
+    //         name: `${'1.'.blue} Crear tarea`
+    // },
+}
+
 
 module.exports = {
     inquirerMenu,
     pause,
-    readInput
+    readInput,
+    listToDelete
 }
 

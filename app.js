@@ -2,7 +2,7 @@
 require('colors');
 
 //Destructuring function
-const { inquirerMenu, pause, readInput } = require('./helpers/inquirer');
+const { inquirerMenu, pause, readInput, listToDelete } = require('./helpers/inquirer');
 const { keepDB, readDB } = require('./helpers/keepFile');
 //Import file
 const Tasks = require('./models/tasks');
@@ -35,6 +35,18 @@ const main = async () => {
 
             case '2':
                 tasks.fullList();
+                break;
+
+            case '3':
+                tasks.completedAndPending(true);
+                break;
+
+            case '4':
+                tasks.completedAndPending(false);
+                break;
+
+            case '5':
+                const id = listToDelete(tasks.listArr);
                 break;
         }
 

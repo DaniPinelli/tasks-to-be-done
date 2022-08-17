@@ -26,32 +26,62 @@ class Tasks {
         this._list = {};
     }
 
-    uploadTaskFromArray(tasks) {
+    deleteTask(id = '') {
+        if (this._list[id]) {
+            delete this._list[id];
+
+        }
+    }
+
+    uploadTaskFromArray(tasks = []) {
 
         tasks.forEach(task => {
             this._list[task.id] = task;
         });
     }
 
-    createTask(desc) {
+    createTask(desc = '') {
 
         const task = new Task(desc);
         this._list[task.id] = task;
     }
 
     fullList() {
+
         this.listArr.forEach((task, i) => {
-            const idF = `${i + 1}`.green;
+            const id = `${i + 1}`.blue;
             const { desc, completado } = task;
             const state = (completado) ? 'Completada'.green : 'Pendiente'.red;
 
-            console.log(`${idF} ${desc} :: ${state}`);
+            console.log(`${id} ${desc} :: ${state}`);
 
         });
     }
 
+    // completedAndPending(completadas = true) {
 
+    //     let counter = 0;
+    //     this.listArr.forEach(task => {
+
+    //         const { desc, completado } = task;
+    //         const state = (completado) ? 'Completada'.green : 'Pendiente'.red;
+
+    //         if (completado) {
+    //             counter += 1;
+    //             console.log(`${(counter + '.').green} ${desc} :: ${completado}`);
+    //         } else {
+    //             if (!completado) {
+    //                 counter += 1;
+    //                 console.log(`${(counter + '.').red} ${desc} :: ${state}`);
+    //             }
+    //         }
+
+
+
+    //     });
 }
+
+//}
 
 
 module.exports = Tasks;
