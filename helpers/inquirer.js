@@ -61,8 +61,8 @@ const pause = async () => {
         }
     ];
 
-    console.log('\n');
     await inquirer.prompt(question);
+    console.log('\n');
 }
 
 

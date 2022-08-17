@@ -1,8 +1,8 @@
 require('colors');
 
 const { inquirerMenu, pause } = require('./helpers/inquirer');
-
-console.clear();
+//const Task = require('./models/task');
+const Tasks = require('./models/tasks');
 
 const main = async () => {
 
@@ -10,7 +10,15 @@ const main = async () => {
 
     do {
         opt = await inquirerMenu();
-        console.log({ opt })
+        console.log({ opt });
+
+        // const tasks = new Tasks();
+        // const task = new Task('Probar');
+
+        // tasks._list[task.id] = task;
+
+        // console.log(tasks);
+
         await pause();
 
     } while (opt !== '0');
