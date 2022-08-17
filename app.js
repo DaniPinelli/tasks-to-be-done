@@ -1,23 +1,35 @@
+//Import package
 require('colors');
 
-const { inquirerMenu, pause } = require('./helpers/inquirer');
-//const Task = require('./models/task');
+//Destructuring function
+const { inquirerMenu, pause, readInput } = require('./helpers/inquirer');
+//Import file
 const Tasks = require('./models/tasks');
 
+//Function main is running currently
 const main = async () => {
 
+    //Variable option
     let opt = '';
 
+    //Instantiate Tasks
+    const tasks = new Tasks();
+
     do {
+        //Print menu from inquirer and return an option 
         opt = await inquirerMenu();
-        console.log({ opt });
 
-        // const tasks = new Tasks();
-        // const task = new Task('Probar');
+        switch (opt) {
+            case '1':
+                //Create option
+                const desc = await readInput('Descripción: ');
+                tasks.createTask(desc);
+                break;
 
-        // tasks._list[task.id] = task;
-
-        // console.log(tasks);
+            case '2':
+                console.log(tasks._list);
+                break;
+        }
 
         await pause();
 
