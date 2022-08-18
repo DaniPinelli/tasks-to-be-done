@@ -30,11 +30,11 @@ const questions = [
             },
             {
                 value: '6',
-                name: `${'6.'.blue}. Borrar tarea`
+                name: `${'6.'.blue} Borrar tarea`
             },
             {
                 value: '0',
-                name: `${'0.'.blue}. Salir`
+                name: `${'0.'.blue} Salir`
             }
         ]
     }
@@ -85,22 +85,73 @@ const readInput = async (message) => {
     return desc;
 }
 
-const listToDelete = async () => {
+const listToDelete = async (tasks = []) => {
 
     const choices = tasks.map((task, i) => {
 
-        const id = `${i + 1}`.green;
+        const id = `${i + 1}`.blue;
 
         return {
             value: task.id,
-            name: id
+            name: `${id} ${task.desc}`
         }
-    })
+    });
 
-    // {
-    //     value: task.id,
-    //         name: `${'1.'.blue} Crear tarea`
-    // },
+    choices.unshift({
+        value: '0',
+        name: '0. Cancelar'.green
+    });
+
+    const questions = [
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Seleccione la tarea a borrar',
+            choices
+        }
+    ]
+
+    const { id } = await inquirer.prompt(questions);
+    return id;
+}
+const confirm = async (message) => {
+
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ];
+
+    const { ok } = await inquirer.prompt(question);
+    return ok;
+}
+
+const showChecklist = async (tasks = []) => {
+
+    const choices = tasks.map((task, i) => {
+
+        const id = `${i + 1}`.blue;
+
+        return {
+            value: task.id,
+            name: `${id} ${task.desc}`,
+            checked: (task.completado) ? true : false
+        }
+    });
+
+    const question = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Seleccionados',
+            choices
+        }
+    ]
+
+    const { ids } = await inquirer.prompt(question);
+    return ids;
 }
 
 
@@ -108,6 +159,8 @@ module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    listToDelete
+    listToDelete,
+    confirm,
+    showChecklist
 }
 

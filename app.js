@@ -2,7 +2,7 @@
 require('colors');
 
 //Destructuring function
-const { inquirerMenu, pause, readInput, listToDelete } = require('./helpers/inquirer');
+const { inquirerMenu, pause, readInput, listToDelete, confirm, showChecklist } = require('./helpers/inquirer');
 const { keepDB, readDB } = require('./helpers/keepFile');
 //Import file
 const Tasks = require('./models/tasks');
@@ -46,7 +46,19 @@ const main = async () => {
                 break;
 
             case '5':
-                const id = listToDelete(tasks.listArr);
+                const ids = await showChecklist(tasks.listArr);
+                console.log(ids);
+                break;
+
+            case '6':
+                const id = await listToDelete(tasks.listArr);
+                if (id !== '0') {
+                    const ok = await confirm(`¿Desea eliminar la tarea?`);
+                    if (ok) {
+                        tasks.deleteTask(id);
+                        console.log(`Borrando tarea ${id}`.red);
+                    }
+                }
                 break;
         }
 
